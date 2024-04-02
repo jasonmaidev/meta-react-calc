@@ -7,50 +7,60 @@ import "./App.css";
 function App() {
   const inputRef = useRef(null);
   const resultRef = useRef(null);
-  const [result, setResult] = useState(0);
+  const [result, setResult] = useState("?");
   const [inputText, setInputText] = useState("Type a number");
 
   function add(e) {
     e.preventDefault();
-    setResult((result) => result + Number(inputRef.current.value));
+    if (typeof result === "string") {
+      setResult(0);
+      setResult((result) => result + Number(inputRef.current.value));
+    } else {
+      setResult((result) => result + Number(inputRef.current.value));
+    }
   };
 
   function subtract(e) {
     // Add the code for the subtract function 
     e.preventDefault();
-    console.log("inputRef: ", inputRef);
-    console.log("result: ", result);
-
-    setResult((result) => result - Number(inputRef.current.value));
+    if (typeof result === "string") {
+      setResult(0);
+      setResult((result) => result - Number(inputRef.current.value));
+    } else {
+      setResult((result) => result - Number(inputRef.current.value));
+    }
   };
 
   function multiply(e) {
     // Add the code for the add function 
-    // if result is equal to zeo than make it eaqual to 1 to avoid zero result
-    if (result == Number(0)) {
-      setResult((result => result + Number(1)));
-    }
     e.preventDefault();
-    setResult((result) => result * Number(inputRef.current.value));
+    // Set result to base 1 on first input to prevent zero number
+    if (typeof result === "string") {
+      setResult(1);
+      setResult((result) => result * Number(inputRef.current.value));
+    } else {
+      setResult((result) => result * Number(inputRef.current.value));
+    }
   };
 
   function divide(e) {
-    // Add the code for the divide function 
-    // if result is equal to zeo than make it eaqual to 1 to avoid zero result
-    if (result == Number(0)) {
-      setResult((result => result + Number(inputRef.current.value)));
+    // Add the code for the add function 
+    e.preventDefault();
+    // Prompt user to insert number before division
+    if (typeof result === "string") {
+      alert("Please add a number first!")
+    } else if (result === 0) {
+      // Propmt user about basic Math rules
+      alert("Trying to divide by ZERO are we? xD")
     } else {
-      // this will execute when numerator and denominator are both set
       setResult((result) => result / Number(inputRef.current.value));
     }
-    e.preventDefault();
   };
 
   function resetInput(e) {
     // Add the code for the resetInput function 
     e.preventDefault();
     inputRef.current.value = 0;
-
   };
 
   function resetResult(e) {
@@ -66,8 +76,8 @@ function App() {
       </div>
       <form>
         <p ref={resultRef}>
-          {/* add the value of the current total, display null value for result if no value is given */}
-          <strong> Result: </strong> {result === 0 ? '' : result}
+          {/* add the value of the current total, display initial result value before inserting number */}
+          <strong> Result: </strong> {result ? result : 0}
         </p>
         <input
           pattern="[0-9]"

@@ -72,7 +72,7 @@ function App() {
   return (
     <div className="App">
       <div>
-        <h1>Simplest Working Calculator V2</h1>
+        <h1>Simplest Working Intuitive Calculator V2</h1>
       </div>
       <form>
         <p ref={resultRef}>
